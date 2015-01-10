@@ -1,0 +1,119 @@
+This will use a Binary Search Tree to store a book.
+The data used will be a catalog of book titles. The command line will be:
+catalog [-r] [-i] file [file ...]
+For each file argument, there will be two files present in the local directory: file.txt and file.commands.
+•file.txt will contain book titles..
+•file.commands will contain a set of commands that can modify the book catalog and/or print information about the catalog.
+The books in each file will not be in any particular order. Use a Binary Search Tree where the book titles are used in arranging the search order for the tree. Use an alphabetical ordering. By default, the books will be arranged in case-sensitive alphabetical order.
+•If -i or --insensitive is specified, the sort order will be case-insensitive.
+•If -r or --reverse is specified, the tree can be arranged using reverse alphabetic order, or you can use an alphabetical ordering and print the tree in reverse order when requested.
+Input:
+For each file listed on the command line, there will be a file named: file.txt. This will contain a list of book titles. The information for a book will consist of one line with the title. Each input line will consist of no more than 160 characters (including the newline at the end of the line). For example:
+Title:  Field Guide to the Grand Canyon, A
+Title:  Collapsing Universe, The
+Title:  Foundation Trilogy, The:  Foundation; Foundation And Empire; Second Foundation
+Title:  Colossus
+Title:  Chindit War, The: Stilwell, Wingate, And The Campaign In Burma, 1944
+Title:  Commodore Hornblower
+Title:  Contact
+Title:  Sturgeon Is Alive And Well
+Title:  Ensign Flandry
+Title:  Escape From Colditz: The Colditz Story; Men Of Colditz
+Title:  History Of US Naval Operations In WWII, Volume 4: Coral Sea, Midway And Submarine Actions
+Title:  Enigma Of Hastings, The
+Title:  Robot Novels, The: The Caves Of Steel, The Naked Sun
+Title:  We're On Your Side, Charlie Brown
+You may make the following assumptions about the input file (that is, you do not have to check if these conditions are true):
+•It will exist.
+•It will contain at least one title.
+•Each title line will start with Title: and two blank spaces.
+•There will be no duplicates among the titles.
+•The titles may, or may not, be in alphabetical order.
+I will provide a set of test book files in ~cs352/fall14/assign13. Each file will conform to the specifications given here.
+Your program will create a binary search tree containing the titles. The tree will be in alphabetic order. When --reverse is chosen, you can create the tree in reverse alphabetic order, or you can use the normal alphabetic ordering and print the tree in reverse order. The order may be case-sensitive or case-insensitive.
+You are to use dynamic memory allocation to create:
+•the binary search tree of titles,
+•the space to save each title string.
+Commands:
+Once your program has constructed the binary search tree of titles, you will read from file.commands a series of queries, one per line.
+When end-of-file on this file is reached, you are done with the commands for this catalog of books. You will then go to the next file specified on the command-line and repeat.
+For all queries, echo the query name to standard out on a line by itself. Then, on subsequent lines, print to standard out the indicated answer(s) to the query (if any). See the examples under each type of query below.
+For commands that specify SAVE as part of the command: Create file.save. Put the result of all save commands from a file.command into file.save in the order in which they are requested.
+TITLE <book title> — Search the title tree and determine if the indicated book title is present. As appropriate, print the message NOT FOUND: or FOUND: followed by the title. For example, using the titles shown above, if the following commands were given in file.command:
+TITLE Collapsing Universe, The
+TITLE Artillery
+TITLE Escape From Colditz: The Colditz Story; Men Of Colditz
+TITLE Asimov's Mysteries
+The following should appear on standard out:
+TITLE
+FOUND: Collapsing Universe, The
+TITLE
+NOT FOUND: Artillery
+TITLE
+FOUND: Escape From Colditz: The Colditz Story; Men Of Colditz
+TITLE
+NOT FOUND: Asimov's Mysteries
+SAVE-TITLES — Save the current titles in file.save. Precede each title with the string Title: and two blank spaces. Put one title per line; that is, there will be one newline character at the end of each title. (No example shown here, but there will be test cases that cover this.) The only thing printed to standard out by this command is SAVE-TITLES.
+ADD <book title> — Search the title tree for the indicated book title. If the title is present in the tree, print the message FOUND: followed by the title. If the title is not present in the tree, add it (alphabetically) and print the message ADDED: followed by the title. For example, using the titles shown above, if the following commands were given on standard in:
+ADD Collapsing Universe, The
+ADD Artillery
+ADD Escape From Colditz: The Colditz Story; Men Of Colditz
+ADD Asimov's Mysteries
+SAVE-TITLES
+The following should appear on standard out:
+ADD
+FOUND: Collapsing Universe, The
+ADD
+ADDED: Artillery
+ADD
+FOUND: Escape From Colditz: The Colditz Story; Men Of Colditz
+ADD
+ADDED: Asimov's Mysteries
+SAVE-TITLES
+And the following should be added to file.save:
+Title:  Artillery
+Title:  Asimov's Mysteries
+Title:  Chindit War, The: Stilwell, Wingate, And The Campaign In Burma, 1944
+Title:  Collapsing Universe, The
+Title:  Colossus
+Title:  Commodore Hornblower
+Title:  Contact
+Title:  Enigma Of Hastings, The
+Title:  Ensign Flandry
+Title:  Escape From Colditz: The Colditz Story; Men Of Colditz
+Title:  Field Guide to the Grand Canyon, A
+Title:  Foundation Trilogy, The:  Foundation; Foundation And Empire; Second Foundation
+Title:  History Of US Naval Operations In WWII, Volume 4: Coral Sea, Midway And Submarine Actions
+Title:  Robot Novels, The: The Caves Of Steel, The Naked Sun
+Title:  Sturgeon Is Alive And Well
+Title:  We're On Your Side, Charlie Brown
+DELETE-TITLE <book title> — Search the title tree for the indicated book title. If the title is present in the tree, remove it. Print the message DELETED TTLE: followed by the title. If the title is not present in the tree, print the message NOT FOUND: followed by the title.
+For example, using the titles shown above, if the following commands were in file.commands:
+DELETE-TITLE Collapsing Universe, The
+DELETE-TITLE Artillery
+DELETE-TITLE Escape From Colditz: The Colditz Story; Men Of Colditz
+DELETE-TITLE Asimov's Mysteries
+SAVE-TITLES
+The following should appear on standard out:
+DELETE-TITLE
+DELETED: Collapsing Universe, The
+DELETE-TITLE
+NOT FOUND: Artillery
+DELETE-TITLE
+DELETED: Escape From Colditz: The Colditz Story; Men Of Colditz
+DELETE-TITLE
+NOT FOUND: Asimov's Mysteries
+SAVE-TITLES
+And the following should be added to file.save:
+Title:  Chindit War, The: Stilwell, Wingate, And The Campaign In Burma, 1944
+Title:  Colossus
+Title:  Commodore Hornblower
+Title:  Contact
+Title:  Enigma Of Hastings, The
+Title:  Ensign Flandry
+Title:  Field Guide to the Grand Canyon, A
+Title:  Foundation Trilogy, The:  Foundation; Foundation And Empire; Second Foundation
+Title:  History Of US Naval Operations In WWII, Volume 4: Coral Sea, Midway And Submarine Actions
+Title:  Robot Novels, The: The Caves Of Steel, The Naked Sun
+Title:  Sturgeon Is Alive And Well
+Title:  We're On Your Side, Charlie Brown
